@@ -1,2 +1,2 @@
-acme_sylius_example:
-    resource: "@AcmeSyliusExamplePlugin/Resources/config/routes.yaml"
+setono_sylius_bulk_edit:
+    resource: "@SetonoSyliusBulkEditPlugin/Resources/config/routes.yaml"

@@ -1,7 +1,7 @@
 {
-    "name": "setono/sylius-plugin-skeleton",
+    "name": "setono/sylius-bulk-edit-plugin",
     "type": "symfony-bundle",
-    "description": "Acme example plugin for Sylius.",
+    "description": "Setono example plugin for Sylius.",
     "keywords": [
         "sylius",
         "sylius-plugin"
@@ -44,12 +44,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Acme\\SyliusExamplePlugin\\": "src/"
+            "Setono\\SyliusBulkEditPlugin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Acme\\SyliusExamplePlugin\\": "tests/"
+            "Tests\\Setono\\SyliusBulkEditPlugin\\": "tests/"
         },
         "classmap": [
             "tests/Application/Kernel.php"
