@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Setono\SyliusBulkEditPlugin\DependencyInjection;
 
-use Setono\SyliusBulkEditPlugin\DependencyInjection\SetonoSyliusBulkEditExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Setono\SyliusBulkEditPlugin\DependencyInjection\SetonoSyliusBulkEditExtension;
 
 /**
  * See examples of tests and configuration options here: https://github.com/SymfonyTest/SymfonyDependencyInjectionTest

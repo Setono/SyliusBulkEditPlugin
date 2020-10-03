@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Setono\SyliusBulkEditPlugin\DependencyInjection;
 
-use Setono\SyliusBulkEditPlugin\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
+use Setono\SyliusBulkEditPlugin\DependencyInjection\Configuration;
 
 /**
  * See examples of tests and configuration options here: https://github.com/SymfonyTest/SymfonyConfigTest
