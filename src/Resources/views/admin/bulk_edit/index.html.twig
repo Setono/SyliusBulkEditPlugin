@@ -36,14 +36,14 @@
                             <td>
                                 <div class="field">
                                     <div class="ui input">
-                                        <input type="text" class="override-price" data-product-id="{{ product.id }}">
+                                        <input type="number" min="0" step="0.01" class="override-price" data-product-id="{{ product.id }}">
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="field">
                                     <div class="ui input">
-                                        <input type="text" class="override-original-price" data-product-id="{{ product.id }}">
+                                        <input type="number" min="0" step="0.01" class="override-original-price" data-product-id="{{ product.id }}">
                                     </div>
                                 </div>
                             </td>
@@ -62,7 +62,7 @@
                                             {% if channelPricing is not null and channelPricing.price is not null %}
                                                 {% set price = (channelPricing.price / 100)|round(2) %}
                                             {% endif %}
-                                            <input type="text" name="variants[{{ variant.id }}][{{ currentChannelCode }}][price]" value="{{ price }}" class="price-{{ product.id }}">
+                                            <input type="number" min="0" step="0.01" name="variants[{{ variant.id }}][{{ currentChannelCode }}][price]" value="{{ price }}" class="price-{{ product.id }}">
                                         </div>
                                     </div>
                                 </td>
@@ -73,7 +73,7 @@
                                             {% if channelPricing is not null and channelPricing.originalPrice is not null %}
                                                 {% set originalPrice = (channelPricing.originalPrice / 100)|round(2) %}
                                             {% endif %}
-                                            <input type="text" name="variants[{{ variant.id }}][{{ currentChannelCode }}][originalPrice]" value="{{ originalPrice }}" class="original-price-{{ product.id }}">
+                                            <input type="number" min="0" step="0.01" name="variants[{{ variant.id }}][{{ currentChannelCode }}][originalPrice]" value="{{ originalPrice }}" class="original-price-{{ product.id }}">
                                         </div>
                                     </div>
                                 </td>
