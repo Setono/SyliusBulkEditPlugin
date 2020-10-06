@@ -1,1 +1,4 @@
-# TODO Add your admin routes here
+setono_sylius_bulk_edit_admin_bulk_edit_products:
+    path: /bulk-edit/products
+    methods: [ GET, POST ]
+    controller: setono_sylius_bulk_edit.controller.action.bulk_edit_products

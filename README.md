@@ -6,6 +6,15 @@
 [![Build Status][ico-github-actions]][link-github-actions]
 [![Code Coverage][ico-code-coverage]][link-code-coverage]
 
+This plugin is a proof of concept of something great to be.
+
+# Installation
+
+1. Composer
+2. config.yaml
+3. routes
+4. product repository trait
+
 [ico-version]: https://poser.pugx.org/setono/sylius-bulk-edit-plugin/v/stable
 [ico-unstable-version]: https://poser.pugx.org/setono/sylius-bulk-edit-plugin/v/unstable
 [ico-license]: https://poser.pugx.org/setono/sylius-bulk-edit-plugin/license

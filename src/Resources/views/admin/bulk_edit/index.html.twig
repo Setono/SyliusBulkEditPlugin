@@ -1,0 +1,118 @@
+{# @var \Sylius\Component\Core\Model\ProductInterface[] products #}
+{# @var \Sylius\Component\Core\Model\ChannelInterface[] channels #}
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% block title %}{{ 'setono_sylius_bulk_edit.ui.bulk_edit'|trans }} | {{ 'sylius.ui.products'|trans }}{% endblock %}
+
+{# @var \Sylius\Component\Core\Model\ChannelInterface currentChannel #}
+{% set currentChannel = null %}
+{% set currentChannelCode = app.request.query.get('channelCode') %}
+{% for channel in channels %}
+    {% if channel.code == currentChannelCode %}
+        {% set currentChannel = channel %}
+    {% endif %}
+{% endfor %}
+
+{% block content %}
+    {% include '@SetonoSyliusBulkEditPlugin/admin/bulk_edit/index/_header.html.twig' %}
+
+
+    <div class="ui segment">
+        <form method="post">
+            <table class="ui stackable very basic celled table">
+                <thead>
+                    <tr>
+                        <th>{{ 'sylius.ui.image'|trans }}</th>
+                        <th>{{ 'sylius.ui.product'|trans }}</th>
+                        <th>{{ 'sylius.ui.price'|trans }} ({{ currentChannel.baseCurrency.code }})</th>
+                        <th>{{ 'sylius.ui.original_price'|trans }} ({{ currentChannel.baseCurrency.code }})</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{% include '@SyliusAdmin/Product/_mainImage.html.twig' with {'product': product, 'filter': 'sylius_admin_product_tiny_thumbnail'} %}</td>
+                            <td>{{ product.name }}</td>
+                            <td>
+                                <div class="field">
+                                    <div class="ui input">
+                                        <input type="text" class="override-price" data-product-id="{{ product.id }}">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="field">
+                                    <div class="ui input">
+                                        <input type="text" class="override-original-price" data-product-id="{{ product.id }}">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% for variant in product.variants %}
+                            {# @var \Sylius\Component\Core\Model\ProductVariantInterface variant #}
+                            {% set channelPricing = variant.channelPricingForChannel(currentChannel) %}
+                            {# @var \Sylius\Component\Core\Model\ChannelPricingInterface channelPricing #}
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>{{ variant.name }}</td>
+                                <td>
+                                    <div class="field">
+                                        <div class="ui input">
+                                            {% set price = '' %}
+                                            {% if channelPricing is not null and channelPricing.price is not null %}
+                                                {% set price = (channelPricing.price / 100)|round(2) %}
+                                            {% endif %}
+                                            <input type="text" name="variants[{{ variant.id }}][{{ currentChannelCode }}][price]" value="{{ price }}" class="price-{{ product.id }}">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="field">
+                                        <div class="ui input">
+                                            {% set originalPrice = '' %}
+                                            {% if channelPricing is not null and channelPricing.originalPrice is not null %}
+                                                {% set originalPrice = (channelPricing.originalPrice / 100)|round(2) %}
+                                            {% endif %}
+                                            <input type="text" name="variants[{{ variant.id }}][{{ currentChannelCode }}][originalPrice]" value="{{ originalPrice }}" class="original-price-{{ product.id }}">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <button class="ui labeled icon primary button" type="submit"><i class="save icon"></i> {{ 'sylius.ui.save'|trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $('.override-price').on('keydown keyup', function() {
+            const productId = $(this).data('product-id');
+            const val = $(this).val();
+
+            $('.price-' + productId).val(val);
+        });
+
+        $('.override-original-price').on('keydown keyup', function() {
+            const productId = $(this).data('product-id');
+            const val = $(this).val();
+
+            $('.original-price-' + productId).val(val);
+        });
+
+        $('form.channel-selector').on('change', 'select', function() {
+            const url = new URL(location.href);
+            url.searchParams.set('channelCode', $(this).val());
+
+            location.href = url.toString();
+        });
+
+        $('form.channel-selector select').dropdown();
+    </script>
+{% endblock %}

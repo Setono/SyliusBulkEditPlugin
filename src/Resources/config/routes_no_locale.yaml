@@ -2,9 +2,6 @@
 # localized URLs (see https://docs.sylius.com/en/latest/cookbook/shop/disabling-localised-urls.html).
 # To accommodate this in your plugin, provide a routes file for non localized stores and tell this in the README.md
 
-setono_sylius_bulk_edit_shop:
-    resource: "@SetonoSyliusBulkEditPlugin/Resources/config/routes/shop.yaml"
-
-setono_sylius_bulk_edit_admin:
-    resource: "@SetonoSyliusBulkEditPlugin/Resources/config/routes/admin.yaml"
-    prefix: /admin
+# For now we don't have any shop routes in this plugin and therefore this file just imports the default routes file
+setono_sylius_bulk_edit:
+    resource: "@SetonoSyliusBulkEditPlugin/Resources/config/routes.yaml"

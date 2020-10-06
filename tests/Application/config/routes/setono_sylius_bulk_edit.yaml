@@ -1,0 +1,2 @@
+setono_sylius_bulk_edit:
+    resource: "@SetonoSyliusBulkEditPlugin/Resources/config/routes.yaml"
