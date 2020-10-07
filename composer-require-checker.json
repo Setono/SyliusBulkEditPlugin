@@ -19,6 +19,6 @@
     "Sylius\\Component\\Channel\\Repository\\ChannelRepositoryInterface",
     "Sylius\\Component\\Core\\Model\\ProductVariantInterface",
     "Sylius\\Component\\Core\\Repository\\ProductRepositoryInterface",
-    "Sylius\Component\Core\Repository\ProductVariantRepositoryInterface"
+    "Sylius\\Component\\Core\\Repository\\ProductVariantRepositoryInterface"
   ]
 }
