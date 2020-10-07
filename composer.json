@@ -9,10 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
+        "doctrine/orm": "^2.7",
+        "sylius/channel": "^1.0",
+        "sylius/core": "^1.0",
         "sylius/core-bundle": "^1.0",
         "symfony/config": "^4.4 || ^5.0",
         "symfony/dependency-injection": "^4.4 || ^5.0",
-        "symfony/http-kernel": "^4.4 || ^5.1.5"
+        "symfony/http-foundation": "^4.4 || ^5.0",
+        "symfony/http-kernel": "^4.4 || ^5.1.5",
+        "twig/twig": "^2.0 || ^3.0"
     },
     "require-dev": {
         "api-platform/core": "^2.5",
