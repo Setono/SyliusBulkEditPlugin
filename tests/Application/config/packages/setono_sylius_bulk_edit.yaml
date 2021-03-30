@@ -1,5 +1,2 @@
 imports:
     - { resource: "@SetonoSyliusBulkEditPlugin/Resources/config/app/config.yaml" }
-
-setono_sylius_bulk_edit:
-    option: Option value
