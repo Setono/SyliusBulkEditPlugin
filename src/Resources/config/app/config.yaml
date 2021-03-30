@@ -1,14 +1,14 @@
 sylius_grid:
     templates:
         bulk_action:
-            edit: "@SetonoSyliusBulkEditPlugin/grid/bulk_action/edit.html.twig"
-            
+            setono_bulk_edit_bulk_action_edit: "@SetonoSyliusBulkEditPlugin/grid/bulk_action/edit.html.twig"
+
     grids:
         sylius_admin_product:
             actions:
                 bulk:
                     edit:
-                        type: edit
+                        type: setono_bulk_edit_bulk_action_edit
                         label: setono_sylius_bulk_edit.ui.action.edit
                         options:
                             link:
