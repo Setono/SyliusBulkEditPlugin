@@ -66,6 +66,7 @@
         ],
         "check-style": "vendor/bin/ecs check src/ spec/ tests/",
         "fix-style": "vendor/bin/ecs check src/ spec/ tests/ --fix",
+        "fixtures": "(cd tests/Application && bin/console sylius:fixtures:load default -n)",
         "phpspec": "vendor/bin/phpspec run -vvv",
         "phpunit": "vendor/bin/phpunit"
     }
