@@ -9,7 +9,7 @@ sylius_grid:
                 bulk:
                     edit:
                         type: edit
-                        label: Edit
+                        label: setono_sylius_bulk_edit.ui.action.edit
                         options:
                             link:
                                 route: setono_sylius_bulk_edit_admin_bulk_edit_products
