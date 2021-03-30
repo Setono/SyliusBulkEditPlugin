@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
+use Webmozart\Assert\Assert;
 
 final class BulkEditProductsAction
 {
@@ -41,10 +42,20 @@ final class BulkEditProductsAction
     {
         /** @var ChannelInterface[] $channels */
         $channels = $this->channelRepository->findAll();
+        Assert::minCount($channels, 1);
 
         if (!$request->query->has('channelCode')) {
-            return new RedirectResponse($request->getUri() . '&channelCode=' . $channels[0]->getCode());
+            $channelAwareUrl = $request->getUri();
+            $channelAwareUrl .= '&channelCode=' . $channels[0]->getCode();
+
+            return new RedirectResponse($channelAwareUrl);
         }
+
+        $currentChannelCode = $request->query->get('channelCode');
+        Assert::string($currentChannelCode);
+        /** @var ChannelInterface|null $currentChannel */
+        $currentChannel = $this->channelRepository->findOneByCode($currentChannelCode);
+        Assert::notNull($currentChannel);
 
         if ($request->isMethod('POST')) {
             $variants = $request->get('variants', []);
@@ -75,6 +86,7 @@ final class BulkEditProductsAction
         return new Response($this->twig->render('@SetonoSyliusBulkEditPlugin/admin/bulk_edit/index.html.twig', [
             'products' => $products,
             'channels' => $channels,
+            'currentChannel' => $currentChannel,
         ]));
     }
 
