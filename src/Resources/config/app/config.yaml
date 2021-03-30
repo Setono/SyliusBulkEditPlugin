@@ -13,3 +13,10 @@ sylius_grid:
                         options:
                             link:
                                 route: setono_sylius_bulk_edit_admin_bulk_edit_products
+                    add_taxons:
+                        type: setono_bulk_edit_bulk_action_edit
+                        label: setono_sylius_bulk_edit.ui.action.add_taxons
+                        options:
+                            icon: 'folder'
+                            link:
+                                route: setono_sylius_bulk_edit_admin_bulk_add_taxons_to_products
