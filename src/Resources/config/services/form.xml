@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://symfony.com/schema/dic/services"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-    <imports>
-        <import resource="services/controller.xml"/>
-        <import resource="services/form.xml"/>
-    </imports>
+    <services>
+        <service id="setono_sylius_bulk_edit.form.type.add_products_to_taxons"
+                 class="Setono\SyliusBulkEditPlugin\Form\Type\AddProductsToTaxonsType">
+            <tag name="form.type" />
+        </service>
+    </services>
 </container>

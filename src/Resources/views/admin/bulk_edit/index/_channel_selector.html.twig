@@ -1,0 +1,7 @@
+<form action="" method="get" class="channel-selector">
+    <select name="channelCode" class="ui dropdown">
+        {% for channel in channels %}
+            <option value="{{ channel.code }}"{{ currentChannel == channel ? ' selected' }}>{{ channel.name }}</option>
+        {% endfor %}
+    </select>
+</form>

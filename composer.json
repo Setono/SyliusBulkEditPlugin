@@ -28,12 +28,12 @@
         "phpunit/phpunit": "^9.2",
         "roave/security-advisories": "dev-master",
         "setono/code-quality-pack": "^1.4",
-        "sylius/sylius": "^1.8",
+        "sylius/sylius": "1.8.*",
         "symfony/debug-bundle": "^5.1",
         "symfony/dotenv": "^5.1",
         "symfony/intl": "^4.4 || ^5.0",
         "symfony/maker-bundle": "^1.15",
-        "symfony/property-info": "^5.0",
+        "symfony/property-info": "^4.4 || ^5.0",
         "symfony/serializer": "^5.0",
         "symfony/web-profiler-bundle": "^5.0"
     },
@@ -66,6 +66,7 @@
         ],
         "check-style": "vendor/bin/ecs check src/ spec/ tests/",
         "fix-style": "vendor/bin/ecs check src/ spec/ tests/ --fix",
+        "fixtures": "(cd tests/Application && bin/console sylius:fixtures:load default -n)",
         "phpspec": "vendor/bin/phpspec run -vvv",
         "phpunit": "vendor/bin/phpunit"
     }

@@ -1,0 +1,46 @@
+sylius_fixtures:
+    suites:
+        default:
+            fixtures:
+
+                channel:
+                    options:
+                        custom:
+                            de_web_store:
+                                name: 'DE Web Store'
+                                code: 'DE_WEB'
+                                locales:
+                                    - 'de_DE'
+                                currencies:
+                                    - 'EUR'
+                                enabled: true
+                                hostname: 'de.%env(resolve:SYLIUS_FIXTURES_HOSTNAME)%'
+                                theme_name: '%env(resolve:SYLIUS_FIXTURES_THEME_NAME)%'
+                                shop_billing_data:
+                                    company: 'Sylius'
+                                    tax_id: '0001112222'
+                                    country_code: 'US'
+                                    street: 'Test St. 15'
+                                    city: 'eCommerce Town'
+                                    postcode: '00 33 22'
+                                menu_taxon: 'MENU_CATEGORY'
+
+                payment_method:
+                    options:
+                        custom:
+                            de_delivery:
+                                code: 'de_delivery'
+                                name: 'DE delivery'
+                                channels:
+                                    - 'DE_WEB'
+                                enabled: true
+
+                shipping_method:
+                    options:
+                        custom:
+                            de_shipping:
+                                code: 'de_shipping'
+                                name: 'DE shipping'
+                                channels:
+                                    - 'DE_WEB'
+                                enabled: true

@@ -1,7 +1,10 @@
 {% set path = options.link.url|default(path(options.link.route)) %}
 
 <form action="{{ path }}" method="get">
+    {# We have data-bulk-action-requires-confirmation here to trigger adding ids to form before submit #}
+    {# @todo Things without confirmation #}
     <button class="ui gray labeled icon button" type="submit" data-bulk-action-requires-confirmation disabled>
-        <i class="icon pencil"></i> {{ action.label|trans }}
+        <i class="icon {{ action.options.icon|default('pencil') }}"></i>
+        {{ action.label|trans }}
     </button>
 </form>
