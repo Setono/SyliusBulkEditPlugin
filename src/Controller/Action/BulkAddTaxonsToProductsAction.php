@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Webmozart\Assert\Assert;
 
@@ -31,7 +31,7 @@ final class BulkAddTaxonsToProductsAction
 
     private EntityManager $productManager;
 
-    private RouterInterface $router;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
@@ -39,14 +39,14 @@ final class BulkAddTaxonsToProductsAction
         FormFactoryInterface $formFactory,
         FactoryInterface $productTaxonFactory,
         EntityManager $productManager,
-        RouterInterface $router
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->productRepository = $productRepository;
         $this->twig = $twig;
         $this->formFactory = $formFactory;
         $this->productTaxonFactory = $productTaxonFactory;
         $this->productManager = $productManager;
-        $this->router = $router;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(Request $request): Response
@@ -82,7 +82,7 @@ final class BulkAddTaxonsToProductsAction
             return new RedirectResponse($redirectUrl);
         }
 
-        $editAction = $this->router->generate('setono_sylius_bulk_edit_admin_bulk_edit_products');
+        $editAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_edit_products');
         $editAction .= '?' . $request->getQueryString();
 
         return new Response($this->twig->render(

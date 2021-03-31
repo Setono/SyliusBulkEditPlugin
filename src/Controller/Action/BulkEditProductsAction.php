@@ -13,7 +13,7 @@ use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Webmozart\Assert\Assert;
 
@@ -27,20 +27,20 @@ final class BulkEditProductsAction
 
     private Environment $twig;
 
-    private RouterInterface $router;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
         ProductVariantRepositoryInterface $productVariantRepository,
         ChannelRepositoryInterface $channelRepository,
         Environment $twig,
-        RouterInterface $router
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->productRepository = $productRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->channelRepository = $channelRepository;
         $this->twig = $twig;
-        $this->router = $router;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function __invoke(Request $request): Response
@@ -88,7 +88,7 @@ final class BulkEditProductsAction
 
         $products = $this->productRepository->findByIds($request->get('ids', []));
 
-        $addTaxonsAction = $this->router->generate('setono_sylius_bulk_edit_admin_bulk_add_taxons_to_products');
+        $addTaxonsAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_add_taxons_to_products');
         $addTaxonsAction .= '?' . $request->getQueryString();
 
         return new Response($this->twig->render('@SetonoSyliusBulkEditPlugin/admin/bulk_edit/index.html.twig', [
