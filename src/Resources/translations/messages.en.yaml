@@ -12,4 +12,4 @@ setono_sylius_bulk_edit:
             edit: Edit
             edit_selected: Edit selected
     form:
-        taxons: Select taxons to add products to
+        taxons: Select taxons to add to products

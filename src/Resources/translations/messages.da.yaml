@@ -2,14 +2,14 @@ setono_sylius_bulk_edit:
     ui:
         bulk_edit: Masseredigering
         bulk_edit_products: Masseredigering af produkter
-        bulk_add_taxons: Bulk add taxons
-        bulk_add_products_to_taxons: Bulk add taxons
+        bulk_add_taxons: Bulk tilføj taksonomier
+        bulk_add_products_to_taxons: Bulk tilføj taksonomier
         present_taxons: Present taxons
-        selected_products: '%products_count% selected products'
+        selected_products: '%products_count% valgte produkter'
         action:
-            add_taxons: Add taxons
-            add_taxons_selected: Add taxons to selected
+            add_taxons: Tilføj taksonomier
+            add_taxons_selected: Tilføj taksonomier til valgte
             edit: Rediger
-            edit_selected: Edit selected
+            edit_selected: Rediger valgte
     form:
-        taxons: Select taxons to add products to
+        taxons: Vælg taksonomier at tilføje til produkter
