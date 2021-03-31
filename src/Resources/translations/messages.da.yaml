@@ -4,7 +4,7 @@ setono_sylius_bulk_edit:
         bulk_edit_products: Masseredigering af produkter
         bulk_add_taxons: Bulk tilføj taksonomier
         bulk_add_products_to_taxons: Bulk tilføj taksonomier
-        present_taxons: Present taxons
+        existing_taxons: Existing taxons # @todo Fix
         selected_products: '%products_count% valgte produkter'
         action:
             add_taxons: Tilføj taksonomier
