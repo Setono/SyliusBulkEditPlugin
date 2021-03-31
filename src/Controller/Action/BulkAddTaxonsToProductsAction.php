@@ -77,9 +77,7 @@ final class BulkAddTaxonsToProductsAction
 
             $this->productManager->flush();
 
-            $redirectUrl = $request->getUri();
-
-            return new RedirectResponse($redirectUrl);
+            return new RedirectResponse($request->getUri());
         }
 
         $editAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_edit_products');
