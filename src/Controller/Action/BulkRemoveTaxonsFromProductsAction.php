@@ -6,13 +6,11 @@ namespace Setono\SyliusBulkEditPlugin\Controller\Action;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
-use Setono\SyliusBulkEditPlugin\Form\Type\AddProductsToTaxonsType;
 use Setono\SyliusBulkEditPlugin\Form\Type\RemoveProductsFromTaxonsType;
 use Setono\SyliusBulkEditPlugin\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTaxonInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
