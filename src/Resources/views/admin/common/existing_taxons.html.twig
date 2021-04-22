@@ -1,0 +1,33 @@
+<div class="ui segment">
+    <h4 class="ui dividing header">{{ 'setono_sylius_bulk_edit.ui.existing_taxons'|trans }}</h4>
+    <table class="ui stackable very basic celled table">
+        <thead>
+        <tr>
+            <th>{{ 'sylius.ui.image'|trans }}</th>
+            <th>{{ 'sylius.ui.product'|trans }}</th>
+            <th>{{ 'setono_sylius_bulk_edit.ui.existing_taxons'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {# @var \Sylius\Component\Core\Model\ProductInterface product #}
+        {% for product in products %}
+            <tr>
+                <td>{% include '@SyliusAdmin/Product/_mainImage.html.twig' with {'product': product, 'filter': 'sylius_admin_product_tiny_thumbnail'} %}</td>
+                <td>{{ product.name }}</td>
+                <td>
+                    <div class="field">
+                        <ul>
+                            {% for taxon in product.taxons %}
+                                <li>
+                                    {{ taxon.fullname }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
