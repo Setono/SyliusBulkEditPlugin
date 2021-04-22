@@ -83,12 +83,16 @@ final class BulkAddTaxonsToProductsAction
         $editAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_edit_products');
         $editAction .= '?' . $request->getQueryString();
 
+        $removeTaxonsAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_remove_taxons_from_products');
+        $removeTaxonsAction .= '?' . $request->getQueryString();
+
         return new Response($this->twig->render(
             '@SetonoSyliusBulkEditPlugin/admin/bulk_add_to_taxon/index.html.twig',
             [
                 'form' => $form->createView(),
                 'action' => $request->getUri(),
                 'editAction' => $editAction,
+                'removeTaxonsAction' => $removeTaxonsAction,
                 'products' => $products,
             ]
         ));
