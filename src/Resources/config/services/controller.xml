@@ -20,5 +20,15 @@
             <argument type="service" id="sylius.manager.product"/>
             <argument type="service" id="router"/>
         </service>
+
+        <service id="setono_sylius_bulk_edit.controller.action.bulk_remove_taxons_from_products"
+                 class="Setono\SyliusBulkEditPlugin\Controller\Action\BulkRemoveTaxonsFromProductsAction" public="true">
+            <argument type="service" id="sylius.repository.product"/>
+            <argument type="service" id="twig"/>
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="sylius.manager.product"/>
+            <argument type="service" id="router"/>
+        </service>
+
     </services>
 </container>

@@ -20,3 +20,10 @@ sylius_grid:
                             icon: 'folder'
                             link:
                                 route: setono_sylius_bulk_edit_admin_bulk_add_taxons_to_products
+                    remove_taxons:
+                        type: setono_bulk_edit_bulk_action_edit
+                        label: setono_sylius_bulk_edit.ui.action.remove_taxons
+                        options:
+                            icon: 'minus'
+                            link:
+                                route: setono_sylius_bulk_edit_admin_bulk_remove_taxons_from_products

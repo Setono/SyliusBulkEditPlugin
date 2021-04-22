@@ -4,12 +4,17 @@ setono_sylius_bulk_edit:
         bulk_edit_products: Bulk edit of products
         bulk_add_taxons: Bulk add taxons
         bulk_add_products_to_taxons: Bulk add taxons
+        bulk_remove_taxons: Bulk remove from taxons
+        bulk_remove_products_from_taxons: Bulk remove from taxons
         existing_taxons: Existing taxons
         selected_products: '%products_count% selected products'
         action:
             add_taxons: Add taxons
+            remove_taxons: Remove taxons
             add_taxons_selected: Add taxons to selected
+            remove_taxons_selected: Remove taxons from selected
             edit: Edit
             edit_selected: Edit selected
     form:
-        taxons: Select taxons to add to products
+        taxons_to_add: Select taxons to add to products
+        taxons_to_remove: Select taxons to remove from products

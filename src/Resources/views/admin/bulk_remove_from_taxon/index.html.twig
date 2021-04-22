@@ -1,0 +1,31 @@
+{# @var \Sylius\Component\Core\Model\ProductInterface[] products #}
+{# @var \Sylius\Component\Core\Model\ChannelInterface[] channels #}
+{# @var \Sylius\Component\Core\Model\ChannelInterface currentChannel #}
+
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% block title %}{{ 'setono_sylius_bulk_edit.ui.bulk_remove_taxons'|trans }} | {{ 'sylius.ui.products'|trans }}{% endblock %}
+
+{% block content %}
+    {% form_theme form '@SyliusAdmin/Form/theme.html.twig' %}
+    {% include '@SetonoSyliusBulkEditPlugin/admin/bulk_remove_from_taxon/index/_header.html.twig' %}
+
+    <div class="ui hidden divider"></div>
+
+    {{ form_start(form, {'method': 'DELETE', 'action': action, 'attr': {'class': 'ui loadable1 form1', 'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+        <div class="ui segment">
+            <h4 class="ui dividing header">{{ 'setono_sylius_bulk_edit.ui.bulk_remove_taxons'|trans }}</h4>
+            {{ form_row(form.taxons) }}
+        </div>
+
+        {{ form_row(form._token) }}
+
+        <button type="submit" class="ui labeled icon red button">
+            <i class="delete icon"></i>
+            {{ 'sylius.ui.delete'|trans }}
+        </button>
+    {{ form_end(form, {'render_rest': false}) }}
+
+    {% include '@SetonoSyliusBulkEditPlugin/admin/common/existing_taxons.html.twig' %}
+{% endblock %}
