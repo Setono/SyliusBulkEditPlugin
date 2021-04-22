@@ -91,11 +91,15 @@ final class BulkEditProductsAction
         $addTaxonsAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_add_taxons_to_products');
         $addTaxonsAction .= '?' . $request->getQueryString();
 
+        $removeTaxonsAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_remove_taxons_from_products');
+        $removeTaxonsAction .= '?' . $request->getQueryString();
+
         return new Response($this->twig->render('@SetonoSyliusBulkEditPlugin/admin/bulk_edit/index.html.twig', [
             'products' => $products,
             'channels' => $channels,
             'currentChannel' => $currentChannel,
             'addTaxonsAction' => $addTaxonsAction,
+            'removeTaxonsAction' => $removeTaxonsAction,
         ]));
     }
 

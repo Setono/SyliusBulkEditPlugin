@@ -18,6 +18,8 @@
     "Sylius\\Bundle\\CoreBundle\\Application\\SyliusPluginTrait",
     "Sylius\\Component\\Channel\\Repository\\ChannelRepositoryInterface",
     "Sylius\\Component\\Core\\Model\\ProductVariantInterface",
+    "Sylius\\Component\\Core\\Model\\ProductInterface",
+    "Sylius\\Component\\Core\\Model\\TaxonInterface",
     "Sylius\\Component\\Core\\Repository\\ProductRepositoryInterface",
     "Sylius\\Component\\Core\\Repository\\ProductVariantRepositoryInterface",
     "Sylius\\Bundle\\TaxonomyBundle\\Form\\Type\\TaxonAutocompleteChoiceType"
