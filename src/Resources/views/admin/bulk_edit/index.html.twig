@@ -18,8 +18,8 @@
                     <tr>
                         <th>{{ 'sylius.ui.image'|trans }}</th>
                         <th>{{ 'sylius.ui.product'|trans }}</th>
-                        <th>{{ 'sylius.ui.price'|trans }} ({{ currentChannel.baseCurrency.code }})</th>
-                        <th>{{ 'sylius.ui.original_price'|trans }} ({{ currentChannel.baseCurrency.code }})</th>
+                        <th>{{ 'sylius.ui.price'|trans }} ({{ currentChannel.baseCurrency.code }})<br><input type="checkbox" name="updateAll[price]" id="update-all-price"> <label for="update-all-price">{{ 'setono_sylius_bulk_edit.ui.update_all_with_same_currency'|trans }}</label></th>
+                        <th>{{ 'sylius.ui.original_price'|trans }} ({{ currentChannel.baseCurrency.code }})<br><input type="checkbox" name="updateAll[originalPrice]" id="update-all-original-price"> <label for="update-all-original-price">{{ 'setono_sylius_bulk_edit.ui.update_all_with_same_currency'|trans }}</label></th>
                     </tr>
                 </thead>
                 <tbody>
