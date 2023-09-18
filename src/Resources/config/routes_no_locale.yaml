@@ -1,7 +1,7 @@
-# By default Sylius uses urls like https://example.com/en_US/, but Sylius also offers the option to disable
+# By default, Sylius uses urls like https://example.com/en_US/, but Sylius also offers the option to disable
 # localized URLs (see https://docs.sylius.com/en/latest/cookbook/shop/disabling-localised-urls.html).
 # To accommodate this in your plugin, provide a routes file for non localized stores and tell this in the README.md
 
-# For now we don't have any shop routes in this plugin and therefore this file just imports the default routes file
+# For now, we don't have any shop routes in this plugin and therefore this file just imports the default routes file
 setono_sylius_bulk_edit:
     resource: "@SetonoSyliusBulkEditPlugin/Resources/config/routes.yaml"

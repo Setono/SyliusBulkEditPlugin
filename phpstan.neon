@@ -1,9 +1,0 @@
-parameters:
-	checkMissingIterableValueType: false
-
-	level: max
-
-	paths:
-		- src/
-
-	reportUnmatchedIgnoredErrors: true
