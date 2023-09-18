@@ -45,13 +45,12 @@ final class BulkEditProductsAction
 
     public function __invoke(Request $request): Response
     {
-        /** @var ChannelInterface[] $channels */
+        /** @var list<ChannelInterface> $channels */
         $channels = $this->channelRepository->findAll();
         Assert::minCount($channels, 1);
 
         if (!$request->query->has('channelCode')) {
-            $channelAwareUrl = $request->getUri();
-            $channelAwareUrl .= '&channelCode=' . $channels[0]->getCode();
+            $channelAwareUrl = sprintf('%s&channelCode=%s', $request->getUri(), (string) $channels[0]->getCode());
 
             return new RedirectResponse($channelAwareUrl);
         }
@@ -63,7 +62,8 @@ final class BulkEditProductsAction
         Assert::notNull($currentChannel);
 
         if ($request->isMethod('POST')) {
-            $variants = $request->get('variants', []);
+            /** @var array<int, array<string, array{price: int, originalPrice: int}>> $variants */
+            $variants = $request->request->get('variants') ?? [];
             foreach ($variants as $variantId => $variant) {
                 /** @var ProductVariantInterface|null $obj */
                 $obj = $this->productVariantRepository->find($variantId);
@@ -86,13 +86,13 @@ final class BulkEditProductsAction
             }
         }
 
-        $products = $this->productRepository->findByIds($request->get('ids', []));
+        $ids = $request->query->get('ids') ?? [];
+        Assert::isArray($ids);
 
-        $addTaxonsAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_add_taxons_to_products');
-        $addTaxonsAction .= '?' . $request->getQueryString();
+        $products = $this->productRepository->findByIds($ids);
 
-        $removeTaxonsAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_remove_taxons_from_products');
-        $removeTaxonsAction .= '?' . $request->getQueryString();
+        $addTaxonsAction = sprintf('%s?%s', $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_add_taxons_to_products'), (string) $request->getQueryString());
+        $removeTaxonsAction = sprintf('%s?%s', $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_remove_taxons_from_products'), (string) $request->getQueryString());
 
         return new Response($this->twig->render('@SetonoSyliusBulkEditPlugin/admin/bulk_edit/index.html.twig', [
             'products' => $products,

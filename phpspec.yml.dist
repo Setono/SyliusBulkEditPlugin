@@ -1,4 +1,0 @@
-suites:
-    main:
-        namespace: Setono\SyliusBulkEditPlugin
-        psr4_prefix: Setono\SyliusBulkEditPlugin

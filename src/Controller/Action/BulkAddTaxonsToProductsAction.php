@@ -51,9 +51,9 @@ final class BulkAddTaxonsToProductsAction
 
     public function __invoke(Request $request): Response
     {
-        $ids = $request->get('ids', []);
-        Assert::allNumeric($ids);
-        $products = $this->productRepository->findByIds((array) $ids);
+        $ids = $request->query->get('ids') ?? [];
+        Assert::isArray($ids);
+        $products = $this->productRepository->findByIds($ids);
 
         // @todo CSRF protection?
         $form = $this->formFactory->create(AddProductsToTaxonsType::class);
@@ -80,11 +80,8 @@ final class BulkAddTaxonsToProductsAction
             return new RedirectResponse($request->getUri());
         }
 
-        $editAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_edit_products');
-        $editAction .= '?' . $request->getQueryString();
-
-        $removeTaxonsAction = $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_remove_taxons_from_products');
-        $removeTaxonsAction .= '?' . $request->getQueryString();
+        $editAction = sprintf('%s?%s', $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_edit_products'), (string) $request->getQueryString());
+        $removeTaxonsAction = sprintf('%s?%s', $this->urlGenerator->generate('setono_sylius_bulk_edit_admin_bulk_remove_taxons_from_products'), (string) $request->getQueryString());
 
         return new Response($this->twig->render(
             '@SetonoSyliusBulkEditPlugin/admin/bulk_add_to_taxon/index.html.twig',
