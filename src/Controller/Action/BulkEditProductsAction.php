@@ -62,6 +62,14 @@ final class BulkEditProductsAction
         Assert::notNull($currentChannel);
 
         if ($request->isMethod('POST')) {
+            $updateAllPrices = $updateAllOriginalPrices = false;
+            $updateAll = $request->request->get('updateAll');
+            /** @psalm-suppress DocblockTypeContradiction,TypeDoesNotContainType */
+            if (is_array($updateAll)) {
+                $updateAllPrices = isset($updateAll['price']);
+                $updateAllOriginalPrices = isset($updateAll['originalPrice']);
+            }
+
             /** @var array<int, array<string, array{price: int, originalPrice: int}>> $variants */
             $variants = $request->request->get('variants') ?? [];
             foreach ($variants as $variantId => $variant) {
@@ -78,8 +86,44 @@ final class BulkEditProductsAction
                         continue;
                     }
 
-                    $channelPricing->setPrice(self::transformPrice((string) $prices['price']));
-                    $channelPricing->setOriginalPrice(self::transformPrice((string) $prices['originalPrice']));
+                    $price = self::transformPrice((string) $prices['price']);
+                    $originalPrice = self::transformPrice((string) $prices['originalPrice']);
+
+                    $channelPricing->setPrice($price);
+                    $channelPricing->setOriginalPrice($originalPrice);
+
+                    /**
+                     * If the administrator checked the update all prices on either the price or original price
+                     * we want to fetch all channels where the base currency is the same as the current channel,
+                     * so we can update the prices for each of these channels
+                     */
+                    if ($updateAllPrices || $updateAllOriginalPrices) {
+                        /** @var list<ChannelInterface> $channelsToUpdate */
+                        $channelsToUpdate = $this->channelRepository->findBy([
+                            'baseCurrency' => $currentChannel->getBaseCurrency(),
+                        ]);
+
+                        foreach ($channelsToUpdate as $channelToUpdate) {
+                            $channelCodeToUpdate = (string) $channelToUpdate->getCode();
+                            // we don't need to update this channel since it's already been updated above
+                            if ($channelCodeToUpdate === $channelCode) {
+                                continue;
+                            }
+
+                            $channelPricing = self::getChannelPricingFromChannelCode($channelCodeToUpdate, $obj);
+                            if (null === $channelPricing) {
+                                continue;
+                            }
+
+                            if ($updateAllPrices) {
+                                $channelPricing->setPrice($price);
+                            }
+
+                            if ($updateAllOriginalPrices) {
+                                $channelPricing->setOriginalPrice($originalPrice);
+                            }
+                        }
+                    }
                 }
 
                 $this->productVariantRepository->add($obj);
