@@ -29,7 +29,7 @@
         "lexik/jwt-authentication-bundle": "^2.8",
         "php-http/message-factory": "^1.1",
         "phpunit/phpunit": "^9.6",
-        "psalm/plugin-phpunit": "^0.18",
+        "psalm/plugin-phpunit": "^0.19",
         "setono/code-quality-pack": "^2.4",
         "sylius/sylius": "~1.10.14",
         "symfony/debug-bundle": "^5.4 || ^6.0",
