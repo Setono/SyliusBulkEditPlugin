@@ -10,6 +10,7 @@
     "require": {
         "php": ">=7.4",
         "doctrine/orm": "^2.7",
+        "psr/event-dispatcher": "^1.0",
         "sylius/channel": "^1.0",
         "sylius/core": "^1.0",
         "sylius/core-bundle": "^1.0",
