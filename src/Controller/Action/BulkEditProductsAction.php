@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Setono\SyliusBulkEditPlugin\Controller\Action;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Setono\SyliusBulkEditPlugin\Event\ProductVariantsUpdatedEvent;
 use Setono\SyliusBulkEditPlugin\Repository\ProductRepositoryInterface;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -29,18 +31,22 @@ final class BulkEditProductsAction
 
     private UrlGeneratorInterface $urlGenerator;
 
+    private EventDispatcherInterface $eventDispatcher;
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
         ProductVariantRepositoryInterface $productVariantRepository,
         ChannelRepositoryInterface $channelRepository,
         Environment $twig,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->productRepository = $productRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->channelRepository = $channelRepository;
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function __invoke(Request $request): Response
@@ -69,6 +75,8 @@ final class BulkEditProductsAction
                 $updateAllPrices = isset($updateAll['price']);
                 $updateAllOriginalPrices = isset($updateAll['originalPrice']);
             }
+
+            $updatedProductVariants = [];
 
             /** @var array<int, array<string, array{price: int, originalPrice: int}>> $variants */
             $variants = $request->request->get('variants') ?? [];
@@ -127,6 +135,12 @@ final class BulkEditProductsAction
                 }
 
                 $this->productVariantRepository->add($obj);
+
+                $updatedProductVariants[] = $obj;
+            }
+
+            if ([] !== $updatedProductVariants) {
+                $this->eventDispatcher->dispatch(new ProductVariantsUpdatedEvent($updatedProductVariants));
             }
         }
 

@@ -6,6 +6,8 @@ namespace Setono\SyliusBulkEditPlugin\Controller\Action;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Setono\SyliusBulkEditPlugin\Event\ProductsUpdatedEvent;
 use Setono\SyliusBulkEditPlugin\Form\Type\RemoveProductsFromTaxonsType;
 use Setono\SyliusBulkEditPlugin\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -31,18 +33,22 @@ final class BulkRemoveTaxonsFromProductsAction
 
     private UrlGeneratorInterface $urlGenerator;
 
+    private EventDispatcherInterface $eventDispatcher;
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
         Environment $twig,
         FormFactoryInterface $formFactory,
         EntityManager $productManager,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->productRepository = $productRepository;
         $this->twig = $twig;
         $this->formFactory = $formFactory;
         $this->productManager = $productManager;
         $this->urlGenerator = $urlGenerator;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function __invoke(Request $request): Response
@@ -69,6 +75,8 @@ final class BulkRemoveTaxonsFromProductsAction
             }
 
             $this->productManager->flush();
+
+            $this->eventDispatcher->dispatch(new ProductsUpdatedEvent($products));
 
             return new RedirectResponse($request->getUri());
         }

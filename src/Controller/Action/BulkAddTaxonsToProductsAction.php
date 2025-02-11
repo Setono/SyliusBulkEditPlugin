@@ -6,6 +6,8 @@ namespace Setono\SyliusBulkEditPlugin\Controller\Action;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Setono\SyliusBulkEditPlugin\Event\ProductsUpdatedEvent;
 use Setono\SyliusBulkEditPlugin\Form\Type\AddProductsToTaxonsType;
 use Setono\SyliusBulkEditPlugin\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Model\ProductTaxonInterface;
@@ -33,13 +35,16 @@ final class BulkAddTaxonsToProductsAction
 
     private UrlGeneratorInterface $urlGenerator;
 
+    private EventDispatcherInterface $eventDispatcher;
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
         Environment $twig,
         FormFactoryInterface $formFactory,
         FactoryInterface $productTaxonFactory,
         EntityManager $productManager,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->productRepository = $productRepository;
         $this->twig = $twig;
@@ -47,6 +52,7 @@ final class BulkAddTaxonsToProductsAction
         $this->productTaxonFactory = $productTaxonFactory;
         $this->productManager = $productManager;
         $this->urlGenerator = $urlGenerator;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function __invoke(Request $request): Response
@@ -76,6 +82,8 @@ final class BulkAddTaxonsToProductsAction
             }
 
             $this->productManager->flush();
+
+            $this->eventDispatcher->dispatch(new ProductsUpdatedEvent($products));
 
             return new RedirectResponse($request->getUri());
         }
